@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk Princeskuh Awa - Slide 2</title>
+    <title>Untuk Princeskuh Awa</title>
     <style>
         * {
             margin: 0;
@@ -65,9 +65,14 @@
         }
 
         /* Slide Container */
-        .slide-container {
-            position: relative;
-            z-index: 1;
+        .slide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             width: 100%;
             max-width: 600px;
             display: flex;
@@ -75,21 +80,141 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            animation: fadeUp 1s ease forwards;
+            padding: 20px;
         }
 
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .slide.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            pointer-events: all;
         }
 
-        /* Bingkai Foto Coklat */
+        /* ===== SLIDE 1 - SURAT ===== */
+        .envelope-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .letter {
+            width: 480px;
+            max-width: 92vw;
+            background: linear-gradient(160deg, #a0522d, #7a3b1e, #5c2d14);
+            padding: 45px 45px 40px;
+            border-radius: 14px;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.6),
+                0 0 0 3px #c49a6c inset,
+                0 0 0 6px #e8d5b8 inset,
+                0 0 0 8px #b87c4b inset;
+            text-align: center;
+            position: relative;
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+
+        .letter:hover {
+            transform: rotateY(2deg) rotateX(1deg) scale(1.02);
+        }
+
+        .letter:active {
+            transform: scale(0.95);
+        }
+
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            border: 1.5px dashed rgba(232, 213, 184, 0.25);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .ornament-top, .ornament-bottom {
+            color: #d4a373;
+            letter-spacing: 10px;
+            opacity: 0.5;
+            display: block;
+        }
+
+        .ornament-top { font-size: 1.1rem; margin-bottom: 12px; }
+        .ornament-bottom { font-size: 1.1rem; margin: 10px 0 14px; }
+
+        .letter h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #f5e6d3;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.6);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            word-wrap: break-word;
+        }
+
+        .letter .sub {
+            display: block;
+            font-size: 0.85rem;
+            color: #eedbc0;
+            letter-spacing: 3px;
+            text-transform: lowercase;
+            opacity: 0.85;
+            margin: 8px auto 14px auto;
+            padding: 6px 18px;
+            border-top: 1px solid rgba(232, 213, 184, 0.2);
+            border-bottom: 1px solid rgba(232, 213, 184, 0.2);
+            width: fit-content;
+            max-width: 100%;
+            font-style: italic;
+            font-weight: 300;
+            white-space: nowrap;
+        }
+
+        .letter .quote {
+            color: #eedbc0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            font-style: italic;
+            margin: 6px 0 8px;
+            padding: 0 10px;
+            font-weight: 300;
+        }
+
+        .click-hint {
+            color: #d4a373;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            margin-top: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .stamp {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 2.8rem;
+            transform: rotate(12deg);
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+            animation: stampFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes stampFloat {
+            0%, 100% { transform: rotate(12deg) scale(1); }
+            50% { transform: rotate(16deg) scale(1.06); }
+        }
+
+        /* ===== SLIDE 2 - FOTO & PUISI ===== */
         .frame-wrapper {
             background: linear-gradient(160deg, #a0522d, #7a3b1e, #5c2d14);
             padding: 18px;
@@ -99,7 +224,7 @@
                 0 0 0 3px #c49a6c inset,
                 0 0 0 6px #e8d5b8 inset;
             width: 100%;
-            max-width: 380px;
+            max-width: 400px;
             transition: transform 0.3s ease;
         }
 
@@ -116,23 +241,22 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            min-height: 300px;
+            min-height: 320px;
             position: relative;
         }
 
         .frame-inner img {
             width: 100%;
             height: 100%;
-            max-height: 450px;
+            max-height: 500px;
             object-fit: contain;
             display: block;
             border-radius: 10px;
         }
 
-        /* Kartu Puisi Coklat */
         .poem-card {
             background: linear-gradient(160deg, #a0522d, #7a3b1e, #5c2d14);
-            padding: 30px 35px 28px;
+            padding: 28px 30px 24px;
             border-radius: 14px;
             box-shadow: 
                 0 15px 40px rgba(0,0,0,0.5),
@@ -142,12 +266,6 @@
             max-width: 550px;
             text-align: center;
             position: relative;
-            animation: floatIn 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            transition: transform 0.3s ease;
-        }
-
-        .poem-card:hover {
-            transform: rotateY(1deg) scale(1.005);
         }
 
         .poem-card::before {
@@ -168,18 +286,18 @@
             font-size: 1rem;
             opacity: 0.5;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .poem-card .poem-text {
             color: #f5e6d3;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             line-height: 1.9;
             font-style: italic;
             font-weight: 300;
             letter-spacing: 0.5px;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-            max-height: 280px;
+            max-height: 260px;
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -187,50 +305,133 @@
         .poem-card .poem-text br {
             display: block;
             content: '';
-            margin: 4px 0;
+            margin: 3px 0;
         }
 
         .poem-card .signature {
             display: block;
-            margin-top: 16px;
+            margin-top: 14px;
             color: #d4a373;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 3px;
             font-style: normal;
             font-weight: 300;
             border-top: 1px solid rgba(232, 213, 184, 0.15);
-            padding-top: 12px;
+            padding-top: 10px;
         }
 
-        /* Tombol Navigasi */
-        .nav-buttons {
-            display: flex;
-            gap: 16px;
+        .poem-text::-webkit-scrollbar {
+            width: 4px;
+        }
+        .poem-text::-webkit-scrollbar-track {
+            background: rgba(245, 230, 211, 0.1);
+            border-radius: 10px;
+        }
+        .poem-text::-webkit-scrollbar-thumb {
+            background: #d4a373;
+            border-radius: 10px;
+        }
+
+        /* ===== SLIDE 3 - PENUTUP ===== */
+        .closing-card {
+            background: linear-gradient(160deg, #a0522d, #7a3b1e, #5c2d14);
+            padding: 45px 40px 40px;
+            border-radius: 14px;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.6),
+                0 0 0 3px #c49a6c inset,
+                0 0 0 6px #e8d5b8 inset,
+                0 0 0 8px #b87c4b inset;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .closing-card::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            border: 1.5px dashed rgba(232, 213, 184, 0.25);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .closing-card .big-heart {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 10px;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            30% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            70% { transform: scale(1.15); }
+        }
+
+        .closing-card h1 {
+            font-size: 2.2rem;
+            color: #f5e6d3;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.6);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .closing-card .message {
+            color: #eedbc0;
+            font-size: 1rem;
+            line-height: 1.8;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            margin: 10px 0 15px;
+            padding: 0 10px;
+        }
+
+        .closing-card .signature {
+            display: block;
+            color: #d4a373;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            border-top: 1px solid rgba(232, 213, 184, 0.15);
+            padding-top: 14px;
             margin-top: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
         }
 
+        .closing-card .ornament {
+            color: #d4a373;
+            letter-spacing: 8px;
+            font-size: 1.1rem;
+            opacity: 0.5;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* ===== TOMBOL ===== */
         .btn-nav {
-            padding: 12px 30px;
+            padding: 14px 44px;
             background: linear-gradient(145deg, #f5e6d3, #e8d5b8);
             color: #4a2008;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-weight: bold;
             text-decoration: none;
             border-radius: 50px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
             border: 2px solid #c49a6c;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             font-family: 'Georgia', serif;
             cursor: pointer;
+            margin-top: 5px;
         }
 
         .btn-nav:hover {
-            transform: scale(1.06);
+            transform: scale(1.08);
             background: linear-gradient(145deg, #fff8f0, #f5e6d3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 14px 36px rgba(0,0,0,0.5);
             border-color: #b8860b;
         }
 
@@ -238,76 +439,43 @@
             transform: scale(0.95);
         }
 
-        .btn-nav.back::before {
-            content: '◀ ';
-        }
+        .btn-nav.next::after { content: ' 💖'; }
+        .btn-nav.restart::before { content: '💌 '; }
 
-        .btn-nav.next::after {
-            content: ' ▶';
-        }
-
-        /* Scrollbar */
-        .poem-text::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .poem-text::-webkit-scrollbar-track {
-            background: rgba(245, 230, 211, 0.1);
-            border-radius: 10px;
-        }
-
-        .poem-text::-webkit-scrollbar-thumb {
-            background: #d4a373;
-            border-radius: 10px;
-        }
-
-        /* Responsive */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 550px) {
-            .frame-wrapper {
-                max-width: 300px;
-                padding: 12px;
-            }
-            .frame-inner {
-                min-height: 200px;
-            }
-            .frame-inner img {
-                max-height: 280px;
-            }
-            .poem-card {
-                padding: 20px 18px 18px;
-                max-width: 100%;
-            }
-            .poem-card .poem-text {
-                font-size: 0.8rem;
-                line-height: 1.8;
-                max-height: 220px;
-            }
-            .btn-nav {
-                padding: 10px 20px;
-                font-size: 0.8rem;
-            }
+            .letter { padding: 30px 22px 28px; }
+            .letter h1 { font-size: 1.7rem; }
+            .letter .sub { font-size: 0.7rem; white-space: normal; }
+            .letter .quote { font-size: 0.82rem; }
+            .stamp { font-size: 2rem; top: -4px; right: -4px; }
+            .ornament-top, .ornament-bottom { font-size: 0.9rem; letter-spacing: 6px; }
+            .click-hint { font-size: 0.6rem; }
+
+            .frame-wrapper { max-width: 320px; padding: 12px; }
+            .frame-inner { min-height: 220px; }
+            .frame-inner img { max-height: 300px; }
+            .poem-card { padding: 18px 16px 16px; }
+            .poem-card .poem-text { font-size: 0.78rem; max-height: 200px; }
+
+            .closing-card { padding: 30px 25px 25px; }
+            .closing-card h1 { font-size: 1.7rem; }
+            .closing-card .message { font-size: 0.85rem; }
+            .closing-card .big-heart { font-size: 3rem; }
+
+            .btn-nav { padding: 12px 30px; font-size: 0.9rem; }
         }
 
         @media (max-width: 400px) {
-            .frame-wrapper {
-                max-width: 250px;
-                padding: 10px;
-            }
-            .frame-inner {
-                min-height: 160px;
-            }
-            .frame-inner img {
-                max-height: 200px;
-            }
-            .poem-card .poem-text {
-                font-size: 0.7rem;
-                line-height: 1.7;
-                max-height: 180px;
-            }
-            .btn-nav {
-                padding: 8px 16px;
-                font-size: 0.7rem;
-            }
+            .letter h1 { font-size: 1.3rem; }
+            .letter .sub { font-size: 0.6rem; }
+            .frame-wrapper { max-width: 260px; padding: 10px; }
+            .frame-inner { min-height: 170px; }
+            .frame-inner img { max-height: 220px; }
+            .poem-card .poem-text { font-size: 0.7rem; max-height: 170px; }
+            .closing-card h1 { font-size: 1.3rem; }
+            .closing-card .message { font-size: 0.75rem; }
+            .btn-nav { padding: 10px 22px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -316,17 +484,32 @@
     <!-- Hujan Love & Bunga -->
     <div class="falling-container" id="fallingContainer"></div>
 
-    <!-- Slide 2 Container -->
-    <div class="slide-container">
+    <!-- ==================== SLIDE 1 ==================== -->
+    <div class="slide active" id="slide1">
+        <div class="envelope-wrapper">
+            <div class="letter" id="suratKlik">
+                <div class="stamp">💖</div>
+                <span class="ornament-top">✦ ✦ ✦</span>
+                <h1>Untuk Princeskuh Awa</h1>
+                <span class="sub">– dari seseorang yang selalu memilihmu –</span>
+                <span class="ornament-bottom">✦ ✦ ✦</span>
+                <p class="quote">
+                    "Kata-kata tak cukup. Tapi surat ini kubuat<br>
+                    dengan sisa-sisa keberanian yang masih tersisa."
+                </p>
+                <span class="click-hint">✨ klik suratnya ✨</span>
+            </div>
+        </div>
+    </div>
 
-        <!-- Bingkai Foto -->
+    <!-- ==================== SLIDE 2 ==================== -->
+    <div class="slide" id="slide2">
         <div class="frame-wrapper">
             <div class="frame-inner">
                 <img src="https://files.catbox.moe/me1cfn.jpg" alt="Princeskuh Awa">
             </div>
         </div>
 
-        <!-- Kartu Puisi -->
         <div class="poem-card">
             <span class="ornament">✦ ✦ ✦</span>
             <div class="poem-text">
@@ -352,52 +535,30 @@
             <span class="signature">– dari seseorang yang selalu memilihmu –</span>
         </div>
 
-        <!-- Tombol Navigasi -->
-        <div class="nav-buttons">
-            <a href="#" class="btn-nav back" id="btnBack">Kembali</a>
-            <a href="#" class="btn-nav next" id="btnNext">Lanjut</a>
+        <button class="btn-nav next" id="btnSlide2Next">Lanjut</button>
+    </div>
+
+    <!-- ==================== SLIDE 3 ==================== -->
+    <div class="slide" id="slide3">
+        <div class="closing-card">
+            <span class="ornament">✦ ✦ ✦</span>
+            <span class="big-heart">💖</span>
+            <h1>Untuk Princeskuh Awa</h1>
+            <p class="message">
+                "Aku tidak tahu bagaimana cara terbaik untuk mengungkapkan semua ini.<br>
+                Tapi yang aku tahu, dari semua orang yang pernah aku kenal,<br>
+                kamu adalah yang paling membuatku ingin berhenti mencari.<br><br>
+                Terima kasih sudah menjadi alasan.<br>
+                Terima kasih sudah menjadi pulang."
+            </p>
+            <span class="ornament">✦ ✦ ✦</span>
+            <span class="signature">– Dari seseorang yang selalu memilihmu –</span>
         </div>
+
+        <button class="btn-nav restart" id="btnRestart">Baca Lagi</button>
     </div>
 
     <script>
-        // ===== FUNGSI SUARA KLIK =====
-        function playClickSound() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-
-                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.1);
-
-                // Suara klik kedua (lebih pendek)
-                setTimeout(() => {
-                    const osc2 = audioCtx.createOscillator();
-                    const gain2 = audioCtx.createGain();
-                    osc2.connect(gain2);
-                    gain2.connect(audioCtx.destination);
-                    osc2.frequency.value = 1000;
-                    osc2.type = 'sine';
-                    gain2.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                    gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
-                    osc2.start(audioCtx.currentTime);
-                    osc2.stop(audioCtx.currentTime + 0.06);
-                }, 80);
-            } catch (e) {
-                // Fallback jika AudioContext tidak didukung
-                console.log('Suara tidak tersedia');
-            }
-        }
-
         // ===== HUJAN LOVE & BUNGA =====
         const container = document.getElementById('fallingContainer');
         const items = ['❤️', '💕', '💗', '💖', '💘', '🌸', '🌺', '🌷', '✨', '🌹', '💝', '🌼', '💓', '🩷'];
@@ -414,19 +575,58 @@
             container.appendChild(el);
         }
 
-        // ===== NAVIGASI DENGAN SUARA =====
-        document.getElementById('btnBack').addEventListener('click', function(e) {
+        // ===== FUNGSI SUARA =====
+        function playClickSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = 800;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {}
+        }
+
+        // ===== FUNGSI PINDAH SLIDE =====
+        function goToSlide(slideId) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(slideId).classList.add('active');
+        }
+
+        // ===== SLIDE 1 → KLIK SURAT =====
+        document.getElementById('suratKlik').addEventListener('click', function(e) {
             e.preventDefault();
             playClickSound();
-            alert('💌 Kembali ke Slide 1');
-            // window.location.href = 'index.html';
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+                goToSlide('slide2');
+            }, 250);
         });
 
-        document.getElementById('btnNext').addEventListener('click', function(e) {
+        // ===== SLIDE 2 → TOMBOL LANJUT =====
+        document.getElementById('btnSlide2Next').addEventListener('click', function(e) {
             e.preventDefault();
             playClickSound();
-            alert('💖 Melanjutkan ke Slide 3');
-            // window.location.href = 'slide3.html';
+            this.textContent = '💖 Loading...';
+            this.style.opacity = '0.7';
+            setTimeout(() => {
+                this.textContent = 'Lanjut';
+                this.style.opacity = '1';
+                goToSlide('slide3');
+            }, 300);
+        });
+
+        // ===== SLIDE 3 → TOMBOL BACA LAGI =====
+        document.getElementById('btnRestart').addEventListener('click', function(e) {
+            e.preventDefault();
+            playClickSound();
+            goToSlide('slide1');
         });
     </script>
 
